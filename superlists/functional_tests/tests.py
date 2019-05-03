@@ -39,13 +39,18 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
         # When she hits enter, the page updates, and now the page lists
         # "1: Buy peacock feathers" as an item in a to-do list table
+        time.sleep(.1)
         edith_list_url = self.browser.current_url
         self.assertRegex(edith_list_url, '/lists/.+')
         self.check_for_row_in_list_table('1: Buy peacock feathers')
 
+        # She wants to add "Use peacock feathers to make a fly" to the list
         inputbox = self.browser.find_element_by_id('id_new_item')
+        time.sleep(.1)
         inputbox.send_keys('Use peacock feathers to make a fly')
+        time.sleep(.1)
         inputbox.send_keys(Keys.ENTER)
+        time.sleep(.1)
 
         # The page updates again, and now shows both items on her list
         self.check_for_row_in_list_table(
@@ -73,6 +78,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
 
         # Francis gets his own unique URL
+        time.sleep(.1)
         francis_list_url = self.browser.current_url
         self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
